@@ -3,6 +3,8 @@
   "package": "io.github.forest611.mcptest.mixin",
   "compatibilityLevel": "JAVA_21",
   "client": [
+    "BlockStatePredictionHandlerAccessor",
+    "ClientLevelAccessor",
     "ClientLevelMixin",
     "ClientPacketListenerMixin",
     "ConnectionMixin",
@@ -12,7 +14,8 @@
     "KeyboardHandlerMixin",
     "KeyboardInputMixin",
     "MinecraftMixin",
-    "MouseHandlerMixin"
+    "MouseHandlerMixin",
+    "ServerVerifiedStateAccessor"
   ],
   "injectors": {
     "defaultRequire": 1

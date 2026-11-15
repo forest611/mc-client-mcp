@@ -10,6 +10,7 @@ public final class Tools {
         ConnectionTools.register(registry);
         PlayerTools.register(registry);
         MovementTools.register(registry);
+        InteractionTools.register(registry);
         EventTools.register(registry);
     }
 }
