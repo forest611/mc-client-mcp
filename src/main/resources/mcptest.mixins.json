@@ -3,6 +3,10 @@
   "package": "io.github.forest611.mcptest.mixin",
   "compatibilityLevel": "JAVA_21",
   "client": [
+    "ClientLevelMixin",
+    "ClientPacketListenerMixin",
+    "DisconnectedScreenAccessor",
+    "GuiMixin",
     "MinecraftMixin"
   ],
   "injectors": {

@@ -1,7 +1,9 @@
 package io.github.forest611.mcptest;
 
 import com.google.gson.JsonObject;
+import io.github.forest611.mcptest.event.EventHooks;
 import io.github.forest611.mcptest.event.EventLog;
+import io.github.forest611.mcptest.event.StateWatcher;
 import io.github.forest611.mcptest.mcp.CallLog;
 import io.github.forest611.mcptest.mcp.McpHttpServer;
 import io.github.forest611.mcptest.mcp.ToolRegistry;
@@ -73,6 +75,7 @@ public final class McpTestMod implements ClientModInitializer {
 
         ToolRegistry registry = new ToolRegistry();
         Tools.registerAll(registry);
+        EventHooks.register();
 
         Path readyFile = dataDir.resolve("ready.json");
         McpHttpServer server = new McpHttpServer(registry, config.callTimeoutMs, version, new CallLog(logDir.resolve("calls.jsonl")));
@@ -98,6 +101,7 @@ public final class McpTestMod implements ClientModInitializer {
             runner.tick(ClientClock.tick());
         });
         ClientTickEvents.END_CLIENT_TICK.register(mc -> {
+            StateWatcher.endTick(mc);
             events.flush();
             if (!ready && mc.getOverlay() == null && (mc.screen != null || mc.level != null)) {
                 ready = true;
