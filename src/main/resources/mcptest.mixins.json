@@ -5,9 +5,13 @@
   "client": [
     "ClientLevelMixin",
     "ClientPacketListenerMixin",
+    "ConnectionMixin",
     "DisconnectedScreenAccessor",
+    "FramerateLimitTrackerMixin",
     "GuiMixin",
-    "MinecraftMixin"
+    "KeyboardHandlerMixin",
+    "MinecraftMixin",
+    "MouseHandlerMixin"
   ],
   "injectors": {
     "defaultRequire": 1
