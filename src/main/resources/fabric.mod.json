@@ -1,0 +1,22 @@
+{
+  "schemaVersion": 1,
+  "id": "mcptest",
+  "version": "${version}",
+  "name": "MCPTest",
+  "description": "Exposes the Minecraft client over MCP so that an agent can drive it for unattended plugin verification.",
+  "environment": "client",
+  "entrypoints": {
+    "client": [
+      "io.github.forest611.mcptest.McpTestMod"
+    ]
+  },
+  "mixins": [
+    "mcptest.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=0.16.0",
+    "minecraft": "1.21.8",
+    "java": ">=21",
+    "fabric-api": "*"
+  }
+}

@@ -1,0 +1,73 @@
+plugins {
+    id 'fabric-loom' version "${loom_version}"
+}
+
+version = project.mod_version
+group = project.maven_group
+
+base {
+    archivesName = project.archives_base_name
+}
+
+repositories {
+    exclusiveContent {
+        forRepository {
+            maven {
+                name = 'DevAuth'
+                url = 'https://pkgs.dev.azure.com/djtheredstoner/DevAuth/_packaging/public/maven/v1'
+            }
+        }
+        filter {
+            includeGroup 'me.djtheredstoner'
+        }
+    }
+}
+
+// Per-launch settings, passed as -Pmcptest.<key>=<value> (see scripts/launch-client.sh).
+def launchProp = { String key -> providers.gradleProperty("mcptest.${key}").getOrNull() }
+
+loom {
+    runs {
+        client {
+            runDir "run/${launchProp('instance') ?: 'default'}"
+            if (launchProp('port')) {
+                vmArg "-Dmcptest.port=${launchProp('port')}"
+            }
+            if (launchProp('minimized')) {
+                vmArg "-Dmcptest.startMinimized=${launchProp('minimized')}"
+            }
+            if (launchProp('username')) {
+                programArgs '--username', launchProp('username')
+            }
+            // DevAuth logs in with a real Microsoft account; it stays inert unless enabled here.
+            vmArg "-Ddevauth.enabled=${launchProp('realAccount') ?: 'false'}"
+        }
+    }
+}
+
+dependencies {
+    minecraft "com.mojang:minecraft:${project.minecraft_version}"
+    mappings loom.officialMojangMappings()
+    modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
+    modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
+
+    modRuntimeOnly "me.djtheredstoner:DevAuth-fabric:${project.devauth_version}"
+}
+
+processResources {
+    inputs.property 'version', project.version
+
+    filesMatching('fabric.mod.json') {
+        expand 'version': inputs.properties.version
+    }
+}
+
+tasks.withType(JavaCompile).configureEach {
+    it.options.release = 21
+    it.options.encoding = 'UTF-8'
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_21
+    targetCompatibility = JavaVersion.VERSION_21
+}
