@@ -3,6 +3,7 @@ package io.github.forest611.mcptest.event;
 import com.google.gson.JsonObject;
 import io.github.forest611.mcptest.ClientClock;
 import io.github.forest611.mcptest.McpTestMod;
+import io.github.forest611.mcptest.input.ScriptedInput;
 import io.github.forest611.mcptest.util.Describe;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientEntityEvents;
 import net.fabricmc.fabric.api.client.message.v1.ClientReceiveMessageEvents;
@@ -78,6 +79,7 @@ public final class EventHooks {
             inSession = true;
         });
         ClientPlayConnectionEvents.DISCONNECT.register((handler, client) -> {
+            ScriptedInput.reset();
             pendingLeave = true;
         });
         ClientEntityEvents.ENTITY_LOAD.register((entity, level) -> {

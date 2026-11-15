@@ -7,6 +7,9 @@ public final class Tools {
     }
 
     public static void registerAll(ToolRegistry registry) {
+        ConnectionTools.register(registry);
+        PlayerTools.register(registry);
+        MovementTools.register(registry);
         EventTools.register(registry);
     }
 }

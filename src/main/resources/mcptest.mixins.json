@@ -10,6 +10,7 @@
     "FramerateLimitTrackerMixin",
     "GuiMixin",
     "KeyboardHandlerMixin",
+    "KeyboardInputMixin",
     "MinecraftMixin",
     "MouseHandlerMixin"
   ],
