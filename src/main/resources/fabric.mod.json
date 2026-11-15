@@ -4,6 +4,7 @@
   "version": "${version}",
   "name": "MCPTest",
   "description": "Exposes the Minecraft client over MCP so that an agent can drive it for unattended plugin verification.",
+  "license": "MIT",
   "environment": "client",
   "entrypoints": {
     "client": [
