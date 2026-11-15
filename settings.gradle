@@ -9,4 +9,4 @@ pluginManagement {
     }
 }
 
-rootProject.name = 'mcptest'
+rootProject.name = 'mc-client-mcp'

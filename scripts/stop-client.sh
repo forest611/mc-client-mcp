@@ -4,7 +4,7 @@ set -euo pipefail
 
 instance=${1:-default}
 project_dir=$(cd "$(dirname "$0")/.." && pwd)
-ready_file="$project_dir/run/$instance/mcptest/ready.json"
+ready_file="$project_dir/run/$instance/mc-client-mcp/ready.json"
 
 if [[ ! -f "$ready_file" ]]; then
     echo "No running client found for instance '$instance' ($ready_file is missing)." >&2

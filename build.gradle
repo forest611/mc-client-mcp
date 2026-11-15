@@ -23,18 +23,18 @@ repositories {
     }
 }
 
-// Per-launch settings, passed as -Pmcptest.<key>=<value> (see scripts/launch-client.sh).
-def launchProp = { String key -> providers.gradleProperty("mcptest.${key}").getOrNull() }
+// Per-launch settings, passed as -Pmc-client-mcp.<key>=<value> (see scripts/launch-client.sh).
+def launchProp = { String key -> providers.gradleProperty("mc-client-mcp.${key}").getOrNull() }
 
 loom {
     runs {
         client {
             runDir "run/${launchProp('instance') ?: 'default'}"
             if (launchProp('port')) {
-                vmArg "-Dmcptest.port=${launchProp('port')}"
+                vmArg "-Dmc-client-mcp.port=${launchProp('port')}"
             }
             if (launchProp('minimized')) {
-                vmArg "-Dmcptest.startMinimized=${launchProp('minimized')}"
+                vmArg "-Dmc-client-mcp.startMinimized=${launchProp('minimized')}"
             }
             if (launchProp('username')) {
                 programArgs '--username', launchProp('username')

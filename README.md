@@ -1,4 +1,4 @@
-# MCPTest
+# MC Client MCP
 
 Claude Code が MCP 経由で Minecraft クライアントを操作し、Paper プラグインの実機検証を人手なしで行うための Fabric クライアント mod です。人がクライアントで行っていた「操作」と「見て確かめる」を、MCP のツール呼び出しに置き換えます。
 
@@ -24,7 +24,7 @@ scripts/stop-client.sh
 `launch-client.sh` はクライアントをバックグラウンドで起動し、MCP の待ち受けが始まるまで待って、次の 1 行を出力します。
 
 ```json
-{"url":"http://127.0.0.1:25580/mcp","pid":7068,"instance":"default","log":".../run/default/mcptest/launch.log"}
+{"url":"http://127.0.0.1:25580/mcp","pid":7068,"instance":"default","log":".../run/default/mc-client-mcp/launch.log"}
 ```
 
 | オプション | 内容 |
@@ -36,7 +36,7 @@ scripts/stop-client.sh
 | `--minimized` | 起動完了後にウィンドウを最小化する |
 | `--timeout SECONDS` | 起動完了を待つ秒数(既定 300) |
 
-起動完了は `GET http://127.0.0.1:PORT/health` の `"ready":true` か、`run/NAME/mcptest/ready.json` の有無でも判定できます。
+起動完了は `GET http://127.0.0.1:PORT/health` の `"ready":true` か、`run/NAME/mc-client-mcp/ready.json` の有無でも判定できます。
 
 2 つ同時に動かす例(土地の所有者と他人など):
 
@@ -45,7 +45,7 @@ scripts/launch-client.sh --instance owner --username Owner --port 25580
 scripts/launch-client.sh --instance guest --username Guest --port 25581
 ```
 
-通常のランチャーで使う場合は、`./gradlew build` で出来る `build/libs/mcptest-0.1.0.jar` を Fabric の 1.21.8 プロファイルの `mods` に Fabric API と一緒に置きます。ポートは JVM 引数 `-Dmcptest.port=...` で変えられます。
+通常のランチャーで使う場合は、`./gradlew build` で出来る `build/libs/mc-client-mcp-0.1.0.jar` を Fabric の 1.21.8 プロファイルの `mods` に Fabric API と一緒に置きます。ポートは JVM 引数 `-Dmc-client-mcp.port=...` で変えられます。
 
 ## Claude Code への登録
 
@@ -139,7 +139,7 @@ MCP の 1 往復は数 tick かかるので、間隔が問題になる操作は 
 
 ## 設定
 
-`run/NAME/config/mcptest.json`。起動ごとに JVM 引数 `-Dmcptest.<名前>=<値>` で上書きできます。
+`run/NAME/config/mc-client-mcp.json`。起動ごとに JVM 引数 `-Dmc-client-mcp.<名前>=<値>` で上書きできます。
 
 | 名前 | 既定 | 内容 |
 |---|---|---|
@@ -153,9 +153,9 @@ MCP の 1 往復は数 tick かかるので、間隔が問題になる操作は 
 
 ## 記録
 
-- `run/NAME/mcptest/logs/<起動日時>/events.jsonl` — クライアントが観測したすべてのイベント
-- `run/NAME/mcptest/logs/<起動日時>/calls.jsonl` — ツール呼び出しの引数と結果
-- `run/NAME/mcptest/screenshots/` — `screenshot` の PNG
+- `run/NAME/mc-client-mcp/logs/<起動日時>/events.jsonl` — クライアントが観測したすべてのイベント
+- `run/NAME/mc-client-mcp/logs/<起動日時>/calls.jsonl` — ツール呼び出しの引数と結果
+- `run/NAME/mc-client-mcp/screenshots/` — `screenshot` の PNG
 
 ## 安全のための制限
 

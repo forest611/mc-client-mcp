@@ -38,18 +38,18 @@ done
 
 project_dir=$(cd "$(dirname "$0")/.." && pwd)
 run_dir="$project_dir/run/$instance"
-log="$run_dir/mcptest/launch.log"
+log="$run_dir/mc-client-mcp/launch.log"
 health="http://127.0.0.1:$port/health"
-mkdir -p "$run_dir/mcptest"
+mkdir -p "$run_dir/mc-client-mcp"
 
 if curl -fs --max-time 2 "$health" >/dev/null 2>&1; then
     echo "Something is already listening on port $port; stop it or choose another --port." >&2
     exit 1
 fi
 
-args=("-Pmcptest.instance=$instance" "-Pmcptest.port=$port" "-Pmcptest.realAccount=$real_account" "-Pmcptest.minimized=$minimized")
+args=("-Pmc-client-mcp.instance=$instance" "-Pmc-client-mcp.port=$port" "-Pmc-client-mcp.realAccount=$real_account" "-Pmc-client-mcp.minimized=$minimized")
 if [[ -n "$username" ]]; then
-    args+=("-Pmcptest.username=$username")
+    args+=("-Pmc-client-mcp.username=$username")
 fi
 
 cd "$project_dir"
@@ -59,7 +59,7 @@ launcher_pid=$!
 deadline=$((SECONDS + timeout))
 while (( SECONDS < deadline )); do
     if curl -fs --max-time 2 "$health" 2>/dev/null | grep -q '"ready":true'; then
-        pid=$(sed -n 's/.*"pid":\([0-9]*\).*/\1/p' "$run_dir/mcptest/ready.json" 2>/dev/null || true)
+        pid=$(sed -n 's/.*"pid":\([0-9]*\).*/\1/p' "$run_dir/mc-client-mcp/ready.json" 2>/dev/null || true)
         printf '{"url":"http://127.0.0.1:%s/mcp","pid":%s,"instance":"%s","log":"%s"}\n' "$port" "${pid:-null}" "$instance" "$log"
         exit 0
     fi
