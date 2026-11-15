@@ -8,7 +8,9 @@ Claude Code が MCP 経由で Minecraft クライアントを操作し、Paper �
 
 ## 起動
 
-JDK 21 が必要です。初回は Minecraft 本体とアセットのダウンロードで数分かかります。
+JDK 21 と、Minecraft: Java Edition の正規ライセンスが必要です。初回は Minecraft 本体とアセットを Mojang の配信サーバーからダウンロードするので数分かかります(合わせて約 600MB、`~/.gradle/caches/fabric-loom/` に保存されます)。
+
+このリポジトリにも、ビルドした jar にも、Minecraft 本体のファイルは含まれていません。
 
 ```sh
 # オフラインモードのサーバー向け。同じ名前なら UUID は毎回同じ
