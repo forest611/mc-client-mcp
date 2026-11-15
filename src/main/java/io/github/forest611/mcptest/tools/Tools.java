@@ -11,6 +11,9 @@ public final class Tools {
         PlayerTools.register(registry);
         MovementTools.register(registry);
         InteractionTools.register(registry);
+        ScreenTools.register(registry);
+        ChatTools.register(registry);
+        WorldTools.register(registry);
         EventTools.register(registry);
     }
 }
